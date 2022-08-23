@@ -50,7 +50,13 @@ def find_crop_edges(image: Image):
     return left, top, right, bottom
 
 
+def is_argb(image: Image) -> bool:
+    return len(image.getpixel((0, 0))) == 4
+
+
 def crop_object_and_strech(image: Image) -> Image:
+    if not is_argb(image):
+        raise Exception("The provided Image has to be ARGB")
     og_size = image.size
     filtered_img = image.filter(ImageFilter.MedianFilter)
     crop_edge = find_crop_edges(filtered_img)

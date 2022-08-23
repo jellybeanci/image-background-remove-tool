@@ -9,7 +9,7 @@ paths = os.listdir(srcPath)  # returns list
 full_paths = list(map(lambda path: os.path.join("./", srcPath, path), paths))
 filter_path = [i for i in full_paths if i.endswith('.jpg') or i.endswith('.png') or i.endswith('jpeg')]
 
-filter_path = filter_path[0: 10]  # select first 10 item
+# filter_path = filter_path[0: 10]  # select first 10 item
 
 os.makedirs(DEST_PATH, exist_ok=True)
 
@@ -18,9 +18,12 @@ interface = HiInterface(batch_size_seg=5, batch_size_matting=1,
                         seg_mask_size=320, matting_mask_size=1024)
 
 
+def is_windows():
+    return os.name == 'nt'
+
 
 def get_name_path(img_path: str) -> str:
-    return img_path.split('/')[-1].split(".")[0]
+    return img_path.split("\\" if is_windows() else "/")[-1].split(".")[0]
 
 
 def image_process(img_path):
