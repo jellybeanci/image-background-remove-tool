@@ -1,5 +1,6 @@
 from PIL import ImageFilter
-from PIL.Image import Image
+from PIL import Image
+
 
 def find_top_pixel(image: Image):
     for y in range(image.height):

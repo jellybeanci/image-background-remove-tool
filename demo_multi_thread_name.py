@@ -11,11 +11,12 @@ filter_path = [i for i in full_paths if i.endswith('.jpg') or i.endswith('.png')
 
 filter_path = filter_path[0: 10]  # select first 10 item
 
+os.makedirs(DEST_PATH, exist_ok=True)
+
 interface = HiInterface(batch_size_seg=5, batch_size_matting=1,
                         device='cuda' if torch.cuda.is_available() else 'cpu',
                         seg_mask_size=320, matting_mask_size=1024)
 
-os.makedirs(DEST_PATH, exist_ok=True)
 
 
 def get_name_path(img_path: str) -> str:
